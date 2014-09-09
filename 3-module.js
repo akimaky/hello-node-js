@@ -1,18 +1,16 @@
-var file = require('./file');
-var path = process.argv[2];
+var m = require('./last-mod');
+var moment = require('moment');
 
-var format = function(date) {
-	return date.getDate() + "." +
-		   (date.getMonth()+1) + "." +
-		   date.getFullYear() + " " +
-		   date.getHours() + ":" + 
-		   date.getMinutes();
+var filename = process.argv[2];
+var timestamp = m(filename);
 
-}
+if (timestamp !==false)	{
+	var date = new Date(timestamp);
+	
+	var fin = moment(date).format('D.M.YYYY H.m');
 
-var checkDate = function(modified){
-	var formatted = format(new Date(modified));
 	console.log(formatted);
 }
-
-file.timestamp(path, checkDate);
+else{
+	console.log("Error message");
+}
